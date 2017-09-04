@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<p>Here you can see the extended razer page being used to see your identity details:</p>
+<p>Hello @User.Identity.Name, your email is @CurrentUser.EmailAddress, and your role is @CurrentUser.Role</p>
+<br />
+<p>Here you can see the injected unit of work being used to display data in the view:</p>
+<p>Role ID: @Work.RoleRepository.GetUserRole().ID, Role Name: @Work.RoleRepository.GetUserRole().Name</p>

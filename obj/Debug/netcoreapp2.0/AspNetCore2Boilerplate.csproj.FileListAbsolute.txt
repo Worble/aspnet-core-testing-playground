@@ -1,0 +1,15 @@
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\bin\Debug\netcoreapp2.0\AspNetCore2Boilerplate.deps.json
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\bin\Debug\netcoreapp2.0\AspNetCore2Boilerplate.runtimeconfig.json
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\bin\Debug\netcoreapp2.0\AspNetCore2Boilerplate.runtimeconfig.dev.json
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\bin\Debug\netcoreapp2.0\AspNetCore2Boilerplate.dll
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\obj\Debug\netcoreapp2.0\AspNetCore2Boilerplate.csprojResolveAssemblyReference.cache
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\obj\Debug\netcoreapp2.0\AspNetCore2Boilerplate.csproj.CoreCompileInputs.cache
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\obj\Debug\netcoreapp2.0\AspNetCore2Boilerplate.AssemblyInfoInputs.cache
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\obj\Debug\netcoreapp2.0\AspNetCore2Boilerplate.AssemblyInfo.cs
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\bin\Debug\netcoreapp2.0\AspNetCore2Boilerplate.pdb
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\obj\Debug\netcoreapp2.0\AspNetCore2Boilerplate.dll
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\obj\Debug\netcoreapp2.0\AspNetCore2Boilerplate.pdb
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\bin\Debug\netcoreapp2.0\BoilerplateData.dll
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\bin\Debug\netcoreapp2.0\BoilerplateData.pdb
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\bin\Debug\netcoreapp2.0\BCrypt.Net-Core.dll
+C:\Users\robert.clarke\Documents\Visual Studio 2017\Projects\AspNetCore2Boilerplate\bin\Debug\netcoreapp2.0\BCrypt.Net-Core.pdb

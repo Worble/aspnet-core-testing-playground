@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>@CurrentUser.Username</h2>
+
+<p>Email: @CurrentUser.EmailAddress <a asp-action="edit" asp-controller="user">Edit</a></p>
+<p>Updating your details would not automatically update the cookie. We override validateasync in startup.cs in order to reflect backend changes in the cookie.</p>
+

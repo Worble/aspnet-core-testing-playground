@@ -1,0 +1,27 @@
+﻿@model AspNetCore2Boilerplate.ViewModels.UserEditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Email</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group-lg">
+        <div>
+            @Html.ValidationMessage("Unique")
+        </div>
+        @Html.HiddenFor(m => m.ID)
+
+        @Html.LabelFor(m => m.EmailAddress, new { @class = "txt-md-bd form-label" })
+        @Html.TextBoxFor(m => m.EmailAddress, "", new { Name = "EmailAddress", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.EmailAddress)
+
+        <br />
+
+        <button><span class="glyphicon glyphicon-menu-right pull-right"></span>Change Email</button>
+
+    </div>
+
+}
