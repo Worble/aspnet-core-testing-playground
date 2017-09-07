@@ -15,6 +15,8 @@ using BoilerplateData.Repositories;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using BoilerplateData.DTOs;
+using BoilerplateData.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCore2Boilerplate
 {
@@ -52,6 +54,7 @@ namespace AspNetCore2Boilerplate
                 });
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<BoilerplateContext, BoilerplateContext>();
 
             services.AddMvc();
         }
@@ -71,6 +74,16 @@ namespace AspNetCore2Boilerplate
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                if (!serviceScope.ServiceProvider.GetService<BoilerplateContext>().AllMigrationsApplied())
+                {
+                    serviceScope.ServiceProvider.GetService<BoilerplateContext>().Database.Migrate();
+                }
+                serviceScope.ServiceProvider.GetService<BoilerplateContext>().EnsureSeeded();
+
+            }
 
             app.UseMvc(routes =>
             {
