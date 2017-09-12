@@ -55,18 +55,18 @@ namespace AspNetCore2Boilerplate.Controllers
             }
             work.UserRepository.EditEmail(model.ID, model.EmailAddress);
             work.Save();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet("Register/")]
         public IActionResult Register()
         {
-            return View(new RegisterViewModel());
+            return View(new UserRegisterViewModel());
         }
 
         [HttpPost("Register/")]
         [ValidateAntiForgeryToken]
-        public IActionResult Register(RegisterViewModel model)
+        public IActionResult Register(UserRegisterViewModel model)
         {
             if (!work.UserRepository.CheckUniqueUsername(model.Username)) {
                 ModelState.AddModelError("Username", "Username already exists.");
@@ -87,11 +87,11 @@ namespace AspNetCore2Boilerplate.Controllers
         [HttpGet("Login/")]
         public IActionResult Login(string returnUrl)
         {
-            return View(new LoginViewModel() { ReturnUrl = returnUrl });
+            return View(new UserLoginViewModel() { ReturnUrl = returnUrl });
         }
 
         [HttpPost("Login/")]
-        public IActionResult Login(LoginViewModel model)
+        public IActionResult Login(UserLoginViewModel model)
         {
             if (!ModelState.IsValid)
             {

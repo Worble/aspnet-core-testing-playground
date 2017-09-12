@@ -47,6 +47,24 @@ namespace BoilerplateData.Entities
             return new UserDTO() { ID = user.ID, EmailAddress = user.EmailAddress, Role = user.Role.Name, Username = user.Username, LastUpdated = user.EditedDate ?? user.CreatedDate };
         }
 
+        internal static List<UserDTO> GetAllPaged(BoilerplateContext context, int pageNumber, int resultAmount)
+        {
+            int resultsToSkip = pageNumber * resultAmount;
+            return context.Users
+                .OrderBy(e => e.CreatedDate)
+                .Skip(resultsToSkip)
+                .Take(resultAmount)
+                .Select(e => new UserDTO()
+                    {
+                        EmailAddress = e.EmailAddress,
+                        ID = e.ID,
+                        LastUpdated = e.EditedDate ?? e.CreatedDate,
+                        Role = e.Role.Name,
+                        Username = e.Username
+                    })
+                .ToList();
+        }
+
         internal static bool ValidateLastChanged(BoilerplateContext context, int userID, string lastChanged)
         {
             var user = context.Users.Find(userID);

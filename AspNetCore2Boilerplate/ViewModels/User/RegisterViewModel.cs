@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCore2Boilerplate.ViewModels
 {
-    public class RegisterViewModel
+    public class UserRegisterViewModel
     {
         [Required(ErrorMessage = "Username is required.")]
         public string Username { get; set; }

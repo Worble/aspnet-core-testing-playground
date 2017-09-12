@@ -32,6 +32,13 @@ namespace BoilerplateData.Context
                 context.AddRange(roles);
                 context.SaveChanges();
             }
+
+            if (!context.Users.Any())
+            {
+                var users = UserSeed.Seed(context);
+                context.AddRange(users);
+                context.SaveChanges();
+            }
         }
     }
 }

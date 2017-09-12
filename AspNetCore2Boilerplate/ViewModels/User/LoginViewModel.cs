@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCore2Boilerplate.ViewModels
 {
-    public class LoginViewModel
+    public class UserLoginViewModel
     {
         [Required]
         [Display(Name = "Email Address or Username")]
