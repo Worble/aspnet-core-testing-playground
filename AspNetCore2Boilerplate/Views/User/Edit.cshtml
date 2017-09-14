@@ -12,11 +12,9 @@
         <div>
             @Html.ValidationMessage("Unique")
         </div>
-        @Html.HiddenFor(m => m.ID)
-
-        @Html.LabelFor(m => m.EmailAddress, new { @class = "txt-md-bd form-label" })
-        @Html.TextBoxFor(m => m.EmailAddress, "", new { Name = "EmailAddress", @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.EmailAddress)
+        <label asp-for="EmailAddress" class="txt-md-bd form-label"></label>
+        <input type="text" asp-for="EmailAddress" class="form-control" />
+        <span asp-validation-for="EmailAddress"></span>
 
         <br />
 

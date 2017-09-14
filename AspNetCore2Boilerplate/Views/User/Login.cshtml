@@ -14,21 +14,21 @@
             @Html.ValidationMessage("Invalid Login")
         </div>
 
-        @Html.LabelFor(m => m.EmailAddressOrUsername, new { @class = "txt-md-bd form-label" })
-        @Html.TextBoxFor(m => m.EmailAddressOrUsername, "", new { Name = "EmailAddressOrUsername", @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.EmailAddressOrUsername)
+        <label asp-for="EmailAddressOrUsername" class="txt-md-bd form-label"></label>
+        <input type="text" asp-for="EmailAddressOrUsername" class="form-control" />
+        <span asp-validation-for="EmailAddressOrUsername"></span>
         <br />
 
-        @Html.LabelFor(m => m.Password, new { @class = "txt-md-bd form-label" })
-        @Html.PasswordFor(m => m.Password, new { Name = "Password", @class = "form-control", autocomplete = "off" })
-        @Html.ValidationMessageFor(m => m.Password)
+        <label asp-for="Password" class="txt-md-bd form-label"></label>
+        <input type="password" asp-for="Password" class="form-control" autocomplete="off" />
+        <span asp-validation-for="Password"></span>
         <div class="link"><a asp-area="" asp-controller="User" asp-action="PasswordReset">Forgotten your password?</a></div>
         <br />
 
-        @Html.CheckBoxFor(m => m.RememberMe)
+        <input type="checkbox" asp-for="RememberMe" />
         <span>&nbsp;Remember me?</span>
 
-        @Html.Hidden("returnUrl", Model.ReturnUrl)
+        <input type="hidden" asp-for="ReturnUrl" />
 
         <div>
             <button type="submit"><span class="glyphicon glyphicon-menu-right pull-right"></span>Sign in</button>

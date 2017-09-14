@@ -7,7 +7,6 @@ namespace AspNetCore2Boilerplate.ViewModels
 {
     public class UserEditViewModel
     {
-        public int ID { get; set; }
         public string EmailAddress { get; set; }
     }
 }

@@ -36,7 +36,6 @@ namespace AspNetCore2Boilerplate.Controllers
         public IActionResult Edit()
         {
             var model = new UserEditViewModel();
-            model.ID = CurrentUser.ID;
             model.EmailAddress = CurrentUser.EmailAddress;
             return View(model);
         }
@@ -53,7 +52,7 @@ namespace AspNetCore2Boilerplate.Controllers
                 ModelState.AddModelError("Unique", "Email Already Exists");
                 return View(model);
             }
-            work.UserRepository.EditEmail(model.ID, model.EmailAddress);
+            work.UserRepository.EditEmail(CurrentUser.ID, model.EmailAddress);
             work.Save();
             return RedirectToAction("Index", "Home");
         }
