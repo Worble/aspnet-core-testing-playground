@@ -13,5 +13,6 @@ namespace AspNetCore2Boilerplate.ViewModels
         public int ResultAmount { get; set; }
         public List<UserDTO> Users { get; set; }
         public List<SelectListItem> ResultAmounts { get; set; }
+        public int TotalPages { get; set; }
     }
 }

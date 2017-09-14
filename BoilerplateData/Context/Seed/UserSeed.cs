@@ -8,14 +8,14 @@ namespace BoilerplateData.Context.Seed
 {
     public static class UserSeed
     {
-        public static List<User> Seed(BoilerplateContext context)
+        public static void Seed(BoilerplateContext context)
         {
-            var seed = new List<User>();
-            for (int i = 0; i < 20; i++)
+            int users = context.Users.Count();
+            for (int i = users; i < 200; i++)
             {
-                seed.Add(new User() { Username = RandomString(6), EmailAddress = RandomString(10), PasswordHash = BCrypt.Net.BCrypt.HashPassword(RandomString(6)), Role = Role.GetUserRole(context) });
+                context.Users.Add(new User() { Username = RandomString(6), EmailAddress = RandomString(6) + "@" + RandomString(4) + ".com", PasswordHash = BCrypt.Net.BCrypt.HashPassword(RandomString(6)), Role = Role.GetUserRole(context) });
             }
-            return seed;
+            return;
         }
 
         private static string RandomString(int length)

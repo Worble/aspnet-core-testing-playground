@@ -25,20 +25,11 @@ namespace BoilerplateData.Context
 
         public static void EnsureSeeded(this BoilerplateContext context)
         {
+            RolesSeed.Seed(context);
+            context.SaveChanges();
 
-            if (!context.Roles.Any())
-            {
-                var roles = RolesSeed.Seed();
-                context.AddRange(roles);
-                context.SaveChanges();
-            }
-
-            if (!context.Users.Any())
-            {
-                var users = UserSeed.Seed(context);
-                context.AddRange(users);
-                context.SaveChanges();
-            }
+            UserSeed.Seed(context);
+            context.SaveChanges();
         }
     }
 }

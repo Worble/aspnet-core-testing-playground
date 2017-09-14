@@ -3,12 +3,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Hello @CurrentUser.Username</h1>
+<h1>Hello @(string.IsNullOrWhiteSpace(CurrentUser.Username) ? "Guest" : CurrentUser.Username)</h1>
 <h1>@CurrentUser.EmailAddress</h1>
 
-<h1>All Users</h1>
-<span>Items per page: </span><select asp-items="@Model.ResultAmounts" asp-for="ResultAmount"></select>
-@Html.HiddenFor(m => m.ResultAmount);
+<h1 class="pull-left">All Users</h1>
+<span class="pull-right">Page @(Model.Page+1) of @(Model.TotalPages+1)</span>
 <table class="table">
     <thead>
         <tr>
@@ -27,22 +26,33 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model.Users)
+        @if (Model.Users.Count < 1)
         {
             <tr>
-                <td>
-                    @user.Username
-                </td>
-                <td>
-                    @user.EmailAddress
-                </td>
-                <td>
-                    @user.Role
-                </td>
-                <td>
-                    @user.LastUpdated
+                <td colspan="4">
+                    No users to show.
                 </td>
             </tr>
+        }
+        else
+        {
+            foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>
+                        @user.Username
+                    </td>
+                    <td>
+                        @user.EmailAddress
+                    </td>
+                    <td>
+                        @user.Role
+                    </td>
+                    <td>
+                        @user.LastUpdated
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
@@ -50,4 +60,11 @@
 {
     <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.Page - 1)" asp-route-resultAmount="@Model.ResultAmount">Previous Page</a>
 }
-<a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.Page + 1)" asp-route-resultAmount="@Model.ResultAmount">Next Page</a>
+@if ((Model.Page > 0) && (Model.Page != Model.TotalPages))
+{
+    <span>&nbsp;|&nbsp;</span>
+}
+@if (Model.Page != Model.TotalPages)
+{
+    <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.Page + 1)" asp-route-resultAmount="@Model.ResultAmount">Next Page</a>
+}

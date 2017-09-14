@@ -53,9 +53,14 @@ namespace BoilerplateData.Repositories
             return User.ValidateLastChanged(context, userID, lastChanged);
         }
 
-        public List<UserDTO> GetAllPaged(int pageNumber, int resultAmount)
+        public List<UserDTO> GetPage(int pageNumber, int resultAmount)
         {
-            return User.GetAllPaged(context, pageNumber, resultAmount);
+            return User.GetPage(context, pageNumber, resultAmount);
+        }
+
+        public int GetTotalPages(int resultAmount)
+        {
+            return User.GetTotalPages(context, resultAmount);
         }
     }
 }

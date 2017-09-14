@@ -22,16 +22,23 @@ namespace AspNetCore2Boilerplate.Controllers
 
         public IActionResult Index(int pageNumber = 0, int resultAmount = 15)
         {
-            var Model = new HomeIndexViewModel();
+            if(pageNumber < 0)
+            {
+                pageNumber = 0;
+            }
 
-            Model.ResultAmounts = new List<SelectListItem>();
-            Model.ResultAmounts.Add(new SelectListItem() { Value = 15.ToString(), Text = 15.ToString(), Selected = true });
-            Model.ResultAmounts.Add(new SelectListItem() { Value = 30.ToString(), Text = 30.ToString() });
-            Model.ResultAmounts.Add(new SelectListItem() { Value = 45.ToString(), Text = 45.ToString() });
+            if(resultAmount < 1)
+            {
+                resultAmount = 1;
+            }
 
-            Model.Page = pageNumber;
-            Model.ResultAmount = resultAmount;
-            Model.Users = work.UserRepository.GetAllPaged(pageNumber, resultAmount);
+            var Model = new HomeIndexViewModel()
+            {
+                Page = pageNumber,
+                ResultAmount = resultAmount,
+                Users = work.UserRepository.GetPage(pageNumber, resultAmount),
+                TotalPages = work.UserRepository.GetTotalPages(resultAmount)
+            };
 
             return View(Model);
         }
