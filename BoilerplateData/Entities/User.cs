@@ -5,6 +5,7 @@ using BoilerplateData.Context;
 using System.Linq;
 using BoilerplateData.DTOs;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace BoilerplateData.Entities
 {
@@ -47,11 +48,13 @@ namespace BoilerplateData.Entities
             return new UserDTO() { ID = user.ID, EmailAddress = user.EmailAddress, Role = user.Role.Name, Username = user.Username, LastUpdated = user.EditedDate ?? user.CreatedDate };
         }
 
-        internal static List<UserDTO> GetPage(BoilerplateContext context, int pageNumber, int resultAmount)
+        internal static List<UserDTO> GetPage(BoilerplateContext context, int pageNumber, int resultAmount, string search)
         {
             int resultsToSkip = pageNumber * resultAmount;
+            var culture = CultureInfo.InvariantCulture;
             return context.Users
                 .OrderBy(e => e.CreatedDate)
+                .Where(e => culture.CompareInfo.IndexOf(e.EmailAddress, search, CompareOptions.IgnoreCase) >= 0 || culture.CompareInfo.IndexOf(e.Username, search, CompareOptions.IgnoreCase) >= 0)
                 .Skip(resultsToSkip)
                 .Take(resultAmount)
                 .Select(e => new UserDTO()
@@ -65,9 +68,10 @@ namespace BoilerplateData.Entities
                 .ToList();
         }
 
-        internal static int GetTotalPages(BoilerplateContext context, int resultAmount)
+        internal static int GetTotalPages(BoilerplateContext context, int resultAmount, string search)
         {
-            return context.Users.Count() / resultAmount;
+            var culture = CultureInfo.InvariantCulture;
+            return context.Users.Where(e => culture.CompareInfo.IndexOf(e.EmailAddress, search, CompareOptions.IgnoreCase) >= 0 || culture.CompareInfo.IndexOf(e.Username, search, CompareOptions.IgnoreCase) >= 0).Count() / resultAmount;
         }
 
         internal static bool ValidateLastChanged(BoilerplateContext context, int userID, string lastChanged)

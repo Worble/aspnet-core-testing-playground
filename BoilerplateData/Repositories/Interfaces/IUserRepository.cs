@@ -15,7 +15,7 @@ namespace BoilerplateData.Repositories.Interfaces
         void EditEmail(int id, string emailAddress);
         UserDTO Get(int id);
         bool ValidateLastChanged(int userID, string lastChanged);
-        List<UserDTO> GetPage(int pageNumber, int resultAmount);
-        int GetTotalPages(int resultAmount);
+        List<UserDTO> GetPage(int pageNumber, int resultAmount, string search);
+        int GetTotalPages(int resultAmount, string search);
     }
 }

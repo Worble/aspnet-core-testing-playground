@@ -1,4 +1,5 @@
 ﻿using AspNetCore2Boilerplate.Models;
+using AspNetCore2Boilerplate.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

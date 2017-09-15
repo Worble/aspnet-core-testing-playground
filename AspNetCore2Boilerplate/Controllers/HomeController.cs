@@ -20,26 +20,29 @@ namespace AspNetCore2Boilerplate.Controllers
             this.work = work;
         }
 
-        public IActionResult Index(int pageNumber = 0, int resultAmount = 15)
+        [HttpGet]
+        public IActionResult Index(int pageNumber = 0, int resultAmount = 15, string search = "")
         {
             if(pageNumber < 0)
             {
                 pageNumber = 0;
             }
-
             if(resultAmount < 1)
             {
                 resultAmount = 1;
             }
-
+            if (string.IsNullOrEmpty(search))
+            {
+                search = "";
+            }
             var Model = new HomeIndexViewModel()
             {
                 Page = pageNumber,
                 ResultAmount = resultAmount,
-                Users = work.UserRepository.GetPage(pageNumber, resultAmount),
-                TotalPages = work.UserRepository.GetTotalPages(resultAmount)
+                ResultAmounts = new List<int>() { 5, 10, 15, 30 },
+                Users = work.UserRepository.GetPage(pageNumber, resultAmount, search),
+                TotalPages = work.UserRepository.GetTotalPages(resultAmount, search)
             };
-
             return View(Model);
         }
 
