@@ -11,10 +11,12 @@ namespace BoilerplateData.Context.Seed
         public static void Seed(BoilerplateContext context)
         {
             int users = context.Users.Count();
-            for (int i = users; i < 200; i++)
+            var usersToAdd = new List<User>();
+            for (int i = users; i < 2000; i++)
             {
-                context.Users.Add(new User() { Username = RandomString(6), EmailAddress = RandomString(6) + "@" + RandomString(4) + ".com", PasswordHash = BCrypt.Net.BCrypt.HashPassword(RandomString(6)), Role = Role.GetUserRole(context) });
+                usersToAdd.Add(new User() { Username = RandomString(6), EmailAddress = RandomString(6) + "@" + RandomString(4) + ".com", PasswordHash = BCrypt.Net.BCrypt.HashPassword(RandomString(6)), Role = Role.GetUserRole(context) });
             }
+            context.AddRange(usersToAdd);
             return;
         }
 

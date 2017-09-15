@@ -8,16 +8,21 @@ using Microsoft.AspNetCore.Authorization;
 using AspNetCore2Boilerplate.ViewModels;
 using BoilerplateData.Work.Interface;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace AspNetCore2Boilerplate.Controllers
 {
     public class HomeController : BaseController
     {
         private IUnitOfWork work;
+        private IHostingEnvironment hostingEnvironment;
 
-        public HomeController(IUnitOfWork work)
+        public HomeController(IUnitOfWork work, IHostingEnvironment hostingEnvironment)
         {
             this.work = work;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet]
@@ -51,6 +56,25 @@ namespace AspNetCore2Boilerplate.Controllers
         {
             ViewData["Message"] = "Your application description page.";
 
+            return View();
+        }
+
+        [HttpPost, Authorize]
+        public async Task<IActionResult> About(IFormCollection form)
+        {
+            if(Request.Form.Files.Count > 0)
+            {
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
+                    var filePath = Path.Combine(uploads, file.FileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    };
+                }
+            }
             return View();
         }
 

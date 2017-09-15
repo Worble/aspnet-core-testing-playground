@@ -48,11 +48,6 @@ namespace BoilerplateData.Context
                 {
                     change.Entity.EditedDate = DateTime.UtcNow;
                 }
-                else if (change.State == EntityState.Deleted)
-                {
-                    change.Entity.RemovedDate = DateTime.UtcNow;
-                    change.State = EntityState.Modified;
-                }
             }
             return base.SaveChanges();
         }

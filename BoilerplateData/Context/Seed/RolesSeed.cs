@@ -10,6 +10,7 @@ namespace BoilerplateData.Context.Seed
     {
         public static void Seed(BoilerplateContext context)
         {
+            var rolesToAdd = new List<Role>();
             if(context.Roles.Where(e => e.Name == "User").FirstOrDefault() == null)
             {
                 context.Roles.Add(new Role() { Name = "User" });
@@ -18,6 +19,7 @@ namespace BoilerplateData.Context.Seed
             {
                 context.Roles.Add(new Role() { Name = "Admin" });
             }
+            context.AddRange(rolesToAdd);
         }
     }
 }

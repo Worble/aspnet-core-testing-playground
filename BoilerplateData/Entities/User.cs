@@ -52,12 +52,14 @@ namespace BoilerplateData.Entities
         {
             int resultsToSkip = pageNumber * resultAmount;
             var culture = CultureInfo.InvariantCulture;
-            return context.Users
-                .OrderBy(e => e.CreatedDate)
-                .Where(e => culture.CompareInfo.IndexOf(e.EmailAddress, search, CompareOptions.IgnoreCase) >= 0 || culture.CompareInfo.IndexOf(e.Username, search, CompareOptions.IgnoreCase) >= 0)
-                .Skip(resultsToSkip)
-                .Take(resultAmount)
-                .Select(e => new UserDTO()
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                return context.Users
+                    .OrderBy(e => e.CreatedDate)
+                    .Where(e => culture.CompareInfo.IndexOf(e.EmailAddress, search, CompareOptions.IgnoreCase) >= 0 || culture.CompareInfo.IndexOf(e.Username, search, CompareOptions.IgnoreCase) >= 0)
+                    .Skip(resultsToSkip)
+                    .Take(resultAmount)
+                    .Select(e => new UserDTO()
                     {
                         EmailAddress = e.EmailAddress,
                         ID = e.ID,
@@ -65,13 +67,38 @@ namespace BoilerplateData.Entities
                         Role = e.Role.Name,
                         Username = e.Username
                     })
-                .ToList();
+                    .ToList();
+            }
+            else
+            {
+                return context.Users
+                    .OrderBy(e => e.CreatedDate)
+                    .Skip(resultsToSkip)
+                    .Take(resultAmount)
+                    .Select(e => new UserDTO()
+                    {
+                        EmailAddress = e.EmailAddress,
+                        ID = e.ID,
+                        LastUpdated = e.EditedDate ?? e.CreatedDate,
+                        Role = e.Role.Name,
+                        Username = e.Username
+                    })
+                    .ToList();
+            }
+
         }
 
         internal static int GetTotalPages(BoilerplateContext context, int resultAmount, string search)
         {
             var culture = CultureInfo.InvariantCulture;
-            return context.Users.Where(e => culture.CompareInfo.IndexOf(e.EmailAddress, search, CompareOptions.IgnoreCase) >= 0 || culture.CompareInfo.IndexOf(e.Username, search, CompareOptions.IgnoreCase) >= 0).Count() / resultAmount;
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                return context.Users.Where(e => culture.CompareInfo.IndexOf(e.EmailAddress, search, CompareOptions.IgnoreCase) >= 0 || culture.CompareInfo.IndexOf(e.Username, search, CompareOptions.IgnoreCase) >= 0).Count() / resultAmount;
+            }
+            else
+            {
+                return context.Users.Count() / resultAmount;
+            }
         }
 
         internal static bool ValidateLastChanged(BoilerplateContext context, int userID, string lastChanged)
