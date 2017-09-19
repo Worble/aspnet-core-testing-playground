@@ -34,7 +34,7 @@ namespace AspNetCore2Boilerplate.Controllers
             }
             if(resultAmount < 1)
             {
-                resultAmount = 1;
+                resultAmount = 15;
             }
             if (string.IsNullOrEmpty(search))
             {
@@ -46,7 +46,8 @@ namespace AspNetCore2Boilerplate.Controllers
                 ResultAmount = resultAmount,
                 ResultAmounts = new List<int>() { 5, 10, 15, 30 },
                 Users = work.UserRepository.GetPage(pageNumber, resultAmount, search),
-                TotalPages = work.UserRepository.GetTotalPages(resultAmount, search)
+                TotalPages = work.UserRepository.GetTotalPages(resultAmount, search),
+                Search = search
             };
             return View(Model);
         }
@@ -59,7 +60,7 @@ namespace AspNetCore2Boilerplate.Controllers
             return View();
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize, ValidateAntiForgeryToken]
         public async Task<IActionResult> About(IFormCollection form)
         {
             if(Request.Form.Files.Count > 0)

@@ -12,9 +12,10 @@ namespace BoilerplateData.Context.Seed
         {
             int users = context.Users.Count();
             var usersToAdd = new List<User>();
-            for (int i = users; i < 2000; i++)
+            Role role = Role.GetUserRole(context);
+            for (int i = users; i < 500; i++)
             {
-                usersToAdd.Add(new User() { Username = RandomString(6), EmailAddress = RandomString(6) + "@" + RandomString(4) + ".com", PasswordHash = BCrypt.Net.BCrypt.HashPassword(RandomString(6)), Role = Role.GetUserRole(context) });
+                usersToAdd.Add(new User() { Username = RandomString(6), EmailAddress = RandomString(6) + "@" + RandomString(4) + ".com", PasswordHash = BCrypt.Net.BCrypt.HashPassword(RandomString(6)), Role = role});
             }
             context.AddRange(usersToAdd);
             return;

@@ -92,7 +92,7 @@
 <div class="row">
     @if (Model.Page > 0)
     {
-        <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.Page - 1)" asp-route-resultAmount="@Model.ResultAmount">Previous Page</a>
+        <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.Page - 1)" asp-route-resultAmount="@Model.ResultAmount" asp-route-search="@Model.Search">Previous Page</a>
     }
     @if ((Model.Page > 0) && (Model.Page != Model.TotalPages))
     {
@@ -100,11 +100,11 @@
     }
     @if (Model.Page != Model.TotalPages)
     {
-        <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.Page + 1)" asp-route-resultAmount="@Model.ResultAmount">Next Page</a>
+        <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.Page + 1)" asp-route-resultAmount="@Model.ResultAmount" asp-route-search="@Model.Search">Next Page</a>
     }
     @if (Model.Page != 0)
     {
-        <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="0" asp-route-resultAmount="@Model.ResultAmount" class="pull-right">First Page</a>
+        <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="0" asp-route-resultAmount="@Model.ResultAmount"  asp-route-search="@Model.Search" class="pull-right">First Page</a>
     }
     @if ((Model.Page != 0) && (Model.Page != Model.TotalPages))
     {
@@ -112,6 +112,6 @@
     }
     @if (Model.Page != Model.TotalPages)
     {
-        <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.TotalPages)" asp-route-resultAmount="@Model.ResultAmount" class="pull-right">Last Page</a>
+        <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.TotalPages)" asp-route-resultAmount="@Model.ResultAmount" asp-route-search="@Model.Search" class="pull-right">Last Page</a>
     }
 </div>

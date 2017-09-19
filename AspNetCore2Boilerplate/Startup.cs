@@ -56,6 +56,11 @@ namespace AspNetCore2Boilerplate
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<BoilerplateContext, BoilerplateContext>();
 
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+
+            services.AddSession();
+
             services.AddMvc();
         }
 
@@ -91,34 +96,6 @@ namespace AspNetCore2Boilerplate
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-        }
-    }
-
-    public static class LastChangedValidator
-    {
-        //rudimentary validation checking; simply checks if the current user is up to date, and updates their credentials if not. 
-        public static async Task ValidateAsync(CookieValidatePrincipalContext context)
-        {
-            if (context.Principal.Identity.IsAuthenticated)
-            {
-                // Pull database from registered DI services.
-                var work = context.HttpContext.RequestServices.GetRequiredService<IUnitOfWork>();
-                var userPrincipal = context.Principal;
-                var user = work.UserRepository.Get(int.Parse(userPrincipal.FindFirstValue(ClaimTypes.NameIdentifier)));
-
-                // Look for the last changed claim.
-                string lastUpdated = userPrincipal.FindFirstValue("LastUpdated");
-
-                if (string.IsNullOrEmpty(lastUpdated) || user.LastUpdated.ToString() != lastUpdated)
-                {
-                    var principal = ApplicationUser.SetClaims(user);
-                    context.ReplacePrincipal(principal);
-                    context.ShouldRenew = true;
-
-                    //context.RejectPrincipal();
-                    //await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                }
-            }
         }
     }
 }

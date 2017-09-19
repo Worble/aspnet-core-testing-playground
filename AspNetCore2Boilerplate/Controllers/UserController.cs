@@ -63,8 +63,7 @@ namespace AspNetCore2Boilerplate.Controllers
             return View(new UserRegisterViewModel());
         }
 
-        [HttpPost("Register/")]
-        [ValidateAntiForgeryToken]
+        [HttpPost("Register/"), ValidateAntiForgeryToken]
         public IActionResult Register(UserRegisterViewModel model)
         {
             if (!work.UserRepository.CheckUniqueUsername(model.Username)) {
@@ -89,7 +88,7 @@ namespace AspNetCore2Boilerplate.Controllers
             return View(new UserLoginViewModel() { ReturnUrl = returnUrl });
         }
 
-        [HttpPost("Login/")]
+        [HttpPost("Login/"), ValidateAntiForgeryToken]
         public IActionResult Login(UserLoginViewModel model)
         {
             if (!ModelState.IsValid)
